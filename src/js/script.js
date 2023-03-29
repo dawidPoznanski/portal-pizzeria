@@ -1,7 +1,7 @@
 /* global Handlebars, utils, dataSource */ // eslint-disable-line no-unused-vars
 
 {
-  'use strict';
+  ('use strict');
 
   const select = {
     templateOf: {
@@ -45,21 +45,59 @@
       defaultValue: 1,
       defaultMin: 1,
       defaultMax: 9,
-    }
+    },
   };
 
   const templates = {
-    menuProduct: Handlebars.compile(document.querySelector(select.templateOf.menuProduct).innerHTML),
+    menuProduct: Handlebars.compile(
+      document.querySelector(select.templateOf.menuProduct).innerHTML
+    ),
   };
 
+  class Product {
+    constructor(id, data) {
+      const thisProduct = this;
+      thisProduct.id = id;
+      thisProduct.data = data;
+
+      thisProduct.renderInMenu();
+    }
+    renderInMenu() {
+      const thisProduct = this;
+
+      // generate HTML
+      const generateHTML = templates.menuProduct(thisProduct.data);
+      // create element using utils
+      thisProduct.element = utils.createDOMFromHTML(generateHTML);
+      // fint menu container
+      const menuContainer = document.querySelector(select.containerOf.menu);
+      // add element to menu
+      menuContainer.appendChild(thisProduct.element);
+    }
+  }
+
   const app = {
-    init: function(){
+    initMenu: function () {
+      const thisApp = this;
+
+      for (let productData in thisApp.data.products) {
+        new Product(productData, thisApp.data.products[productData]);
+      }
+    },
+    initData: function () {
+      const thisApp = this;
+      thisApp.data = dataSource;
+    },
+    init: function () {
       const thisApp = this;
       console.log('*** App starting ***');
       console.log('thisApp:', thisApp);
       console.log('classNames:', classNames);
       console.log('settings:', settings);
       console.log('templates:', templates);
+
+      thisApp.initData();
+      thisApp.initMenu();
     },
   };
 
