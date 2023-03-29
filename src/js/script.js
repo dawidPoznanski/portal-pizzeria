@@ -61,6 +61,7 @@
       thisProduct.data = data;
 
       thisProduct.renderInMenu();
+      thisProduct.initAccordion();
     }
     renderInMenu() {
       const thisProduct = this;
@@ -73,6 +74,27 @@
       const menuContainer = document.querySelector(select.containerOf.menu);
       // add element to menu
       menuContainer.appendChild(thisProduct.element);
+    }
+    initAccordion() {
+      const thisProduct = this;
+
+      const clickableTrigger = thisProduct.element.querySelector(
+        select.menuProduct.clickable
+      );
+
+      clickableTrigger.addEventListener('click', function (e) {
+        e.preventDefault();
+
+        const activeProduct = document.querySelector('.active');
+
+        if (activeProduct !== null && activeProduct !== thisProduct.element) {
+          activeProduct.classList.remove(classNames.menuProduct.wrapperActive);
+        }
+
+        thisProduct.element.classList.toggle(
+          classNames.menuProduct.wrapperActive
+        );
+      });
     }
   }
 
