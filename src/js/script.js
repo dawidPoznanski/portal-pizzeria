@@ -415,7 +415,28 @@
       thisCart.dom.productList.appendChild(generatedDOM);
 
       thisCart.products.push(new CartProduct(menuProduct, generatedDOM));
-      console.log('thisCart.products: ', thisCart.products);
+      thisCart.update();
+    }
+
+    update(){
+      const thisCart = this;
+
+      let deliveryFee = settings.cart.defaultDeliveryFee;
+      let totalNumber = 0;
+      let subtotalPrice = 0;
+
+      for (let product of thisCart.products) {
+        if(product){
+          totalNumber = totalNumber + product.amount;
+          subtotalPrice = subtotalPrice + product.price;
+        }
+        thisCart.totalPrice = subtotalPrice + deliveryFee;
+        if(totalNumber == 0){
+          thisCart.totalNumber = 0;
+        }
+      }
+
+
     }
   }
 
