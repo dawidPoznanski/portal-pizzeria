@@ -37,8 +37,7 @@
       productList: '.cart__order-summary',
       toggleTrigger: '.cart__summary',
       totalNumber: `.cart__total-number`,
-      totalPrice:
-        '.cart__total-price strong, .cart__order-total .cart__order-price-sum strong',
+      totalPrice: `.cart__total-price strong, .cart__order-total .cart__order-price-sum strong`,
       subtotalPrice: '.cart__order-subtotal .cart__order-price-sum strong',
       deliveryFee: '.cart__order-delivery .cart__order-price-sum strong',
       form: '.cart__order',
@@ -306,7 +305,8 @@
       // function calls
       thisWidget.getElements(element);
       thisWidget.initActions();
-      thisWidget.setValue(settings.amountWidget.defaultValue);
+      thisWidget.value = settings.amountWidget.defaultValue;
+      thisWidget.setValue(thisWidget.input.value);
     }
 
     getElements(element) {
@@ -386,6 +386,10 @@
 
       thisCart.dom = {
         toggleTrigger: document.querySelector(select.cart.toggleTrigger),
+        deliveryFee: document.querySelector(select.cart.deliveryFee),
+        subtotalPrice: document.querySelector(select.cart.subtotalPrice),
+        totalPrice: document.querySelectorAll(select.cart.totalPrice),
+        totalNumber:document.querySelector(select.cart.totalNumber),
       };
 
       thisCart.dom.productList = document.querySelector(
@@ -434,6 +438,15 @@
         if(totalNumber == 0){
           thisCart.totalNumber = 0;
         }
+      }
+      thisCart.dom.deliveryFee.innerHTML = deliveryFee;
+      thisCart.dom.subtotalPrice.innerHTML = subtotalPrice;
+      thisCart.dom.totalNumber.innerHTML = totalNumber;
+
+
+      console.log(thisCart.totalPrice);
+      for(let price of thisCart.dom.totalPrice){
+        price.innerHTML = thisCart.totalPrice;
       }
 
 
