@@ -71,10 +71,15 @@
       defaultValue: 1,
       defaultMin: 1,
       defaultMax: 9,
-    }, // CODE CHANGED
-    // CODE ADDED START
+    },
     cart: {
       defaultDeliveryFee: 20,
+    },
+    // CODE ADDED START
+    db: {
+      url: '//localhost:3131',
+      products: 'products',
+      orders: 'orders',
     },
     // CODE ADDED END
   };
@@ -83,11 +88,9 @@
     menuProduct: Handlebars.compile(
       document.querySelector(select.templateOf.menuProduct).innerHTML
     ),
-    // CODE ADDED START
     cartProduct: Handlebars.compile(
       document.querySelector(select.templateOf.cartProduct).innerHTML
     ),
-    // CODE ADDED END
   };
 
   class Product {
@@ -293,7 +296,6 @@
           }
         }
       }
-      console.log(params);
       return params;
     }
   }
@@ -379,8 +381,6 @@
 
       thisCart.getElements(element);
       thisCart.initActions();
-
-      console.log('THIS CART', thisCart);
     }
 
     getElements(element) {
@@ -484,7 +484,6 @@
       thisCartProduct.getElements(element);
       thisCartProduct.amountWidget();
       thisCartProduct.initActions();
-      console.log(thisCartProduct);
     }
     getElements(element) {
       const thisCartProduct = this;
@@ -551,13 +550,30 @@
       const thisApp = this;
 
       for (let productData in thisApp.data.products) {
-        new Product(productData, thisApp.data.products[productData]);
+        new Product(
+          thisApp.data.products[productData].id,
+          thisApp.data.products[productData]
+        );
       }
     },
 
     initData: function () {
       const thisApp = this;
-      thisApp.data = dataSource;
+      thisApp.data = {};
+      const URL = settings.db.url + '/' + settings.db.products;
+
+      fetch(URL)
+        .then((rawResponse) => {
+          return rawResponse.json();
+        })
+        .then((parsedResponse) => {
+          thisApp.data.products = parsedResponse;
+          thisApp.initMenu();
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+      console.log('Data: ', JSON.stringify(thisApp.data));
     },
 
     initCart: function () {
@@ -576,7 +592,6 @@
       console.log('templates:', templates);
 
       thisApp.initData();
-      thisApp.initMenu();
       thisApp.initCart();
     },
   };
