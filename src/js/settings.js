@@ -2,10 +2,13 @@ export const select = {
   templateOf: {
     menuProduct: '#template-menu-product',
     cartProduct: '#template-cart-product', // CODE ADDED
+    bookingWidget: '#template-booking-widget',
   },
   containerOf: {
     menu: '#product-list',
     cart: '#cart',
+    pages: '#pages',
+    booking: '.booking-wrapper',
   },
   all: {
     menuProducts: '#product-list > .product',
@@ -25,6 +28,10 @@ export const select = {
       input: 'input.amount', // CODE CHANGED
       linkDecrease: 'a[href="#less"]',
       linkIncrease: 'a[href="#more"]',
+    },
+    datePicker: {
+      wrapper: '.date-picker',
+      input: `input[name="date"]`,
     },
   },
   // CODE ADDED START
@@ -46,6 +53,14 @@ export const select = {
     edit: '[href="#edit"]',
     remove: '[href="#remove"]',
   },
+  booking: {
+    peopleAmount: '.people-amount',
+    hoursAmount: '.hours-amount',
+    tables: '.floor-plan .table',
+  },
+  nav: {
+    links: '.main-nav a',
+  },
   // CODE ADDED END
 };
 
@@ -57,6 +72,16 @@ export const classNames = {
   // CODE ADDED START
   cart: {
     wrapperActive: 'active',
+  },
+  booking: {
+    loading: 'loading',
+    tableBooked: 'booked',
+  },
+  nav: {
+    active: 'active',
+  },
+  pages: {
+    active: 'active',
   },
   // CODE ADDED END
 };
@@ -76,6 +101,27 @@ export const settings = {
     products: 'products',
     orders: 'orders',
   },
+  hours: {
+    open: 12,
+    close: 24,
+  },
+  datePicker: {
+    maxDaysInFuture: 14,
+  },
+  booking: {
+    tableIdAttribute: 'data-table',
+  },
+  dbBookings: {
+    url: '//localhost:3131',
+    product: 'product',
+    order: 'order',
+    booking: 'booking',
+    event: 'event',
+    dateStartParamKey: 'date_gte',
+    dateEndParamKey: 'date_lte',
+    notRepeatParam: 'repeat=false',
+    repeatParam: 'repeat_ne=false',
+  },
   // CODE ADDED END
 };
 
@@ -85,5 +131,8 @@ export const templates = {
   ),
   cartProduct: Handlebars.compile(
     document.querySelector(select.templateOf.cartProduct).innerHTML
+  ),
+  bookingWidget: Handlebars.compile(
+    document.querySelector(select.templateOf.bookingWidget).innerHTML
   ),
 };

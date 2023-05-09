@@ -105,13 +105,12 @@ class Cart {
       if (product) {
         thisCart.totalNumber = thisCart.totalNumber + product.amount;
         thisCart.subtotalPrice = thisCart.subtotalPrice + product.price;
-        console.log(product, 'Product in cart');
       }
     }
 
     thisCart.totalPrice = thisCart.subtotalPrice;
-    if (thisCart.totalNumber != 0) {
-      thisCart.totalNumber += thisCart.deliveryFee;
+    if (thisCart.totalPrice != 0) {
+      thisCart.totalPrice += thisCart.deliveryFee;
     } else {
       thisCart.deliveryFee = 0;
     }
