@@ -106,7 +106,7 @@ export const settings = {
     maxDaysInFuture: 14,
   },
   booking: {
-    tableIdAttribute: '.data-table',
+    tableIdAttribute: 'data-table',
   },
   db: {
     url: '//localhost:3131',
