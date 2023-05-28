@@ -3,6 +3,7 @@ export const select = {
     menuProduct: '#template-menu-product',
     cartProduct: '#template-cart-product', // CODE ADDED
     bookingWidget: '#template-booking-widget',
+    homePage: '#template-home-page',
   },
   containerOf: {
     menu: '#product-list',
@@ -10,6 +11,7 @@ export const select = {
     pages: '#pages',
     booking: '.booking-wrapper',
     floor: '.floor-plan',
+    homePage: '.home-wrapper',
   },
   all: {
     menuProducts: '#product-list > .product',
@@ -48,6 +50,9 @@ export const select = {
     address: '[name="address"]',
     form: '.booking-form',
     starters: '[name="starter"]',
+  },
+  homePage: {
+    boxLinksWrapper: '.links-wrapper',
   },
   nav: {
     links: '.main-nav a',
@@ -138,5 +143,8 @@ export const templates = {
 
   bookingWidget: Handlebars.compile(
     document.querySelector(select.templateOf.bookingWidget).innerHTML
+  ),
+  homePage: Handlebars.compile(
+    document.querySelector(select.templateOf.homePage).innerHTML
   ),
 };

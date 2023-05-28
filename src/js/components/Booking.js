@@ -289,7 +289,6 @@ class Booking {
       }
     }
 
-    console.log(payload);
 
     const options = {
       method: 'POST',

@@ -7,7 +7,6 @@ class Cart {
     const thisCart = this;
 
     thisCart.products = [];
-    console.log(thisCart.products);
 
     thisCart.getElements(element);
     thisCart.initActions();
